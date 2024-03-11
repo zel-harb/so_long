@@ -6,11 +6,12 @@
 /*   By: zel-harb <zel-harb@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/03 14:35:34 by zel-harb          #+#    #+#             */
-/*   Updated: 2024/03/09 02:27:42 by zel-harb         ###   ########.fr       */
+/*   Updated: 2024/03/11 04:30:25 by zel-harb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "so_long.h"
+
 int 	ft_strchr_int( char **s, char c,int size)
 {
 	int	ds;
@@ -33,19 +34,6 @@ int 	ft_strchr_int( char **s, char c,int size)
 		i++;
 	}
 	return (ds);
-}
-int count_line(int fd)
-{
-    int count_line;
-    char *line;
-
-    line=get_next_line(fd);
-    while(line)
-    {
-        count_line++;
-        line=get_next_line(fd);
-    }
-    return count_line;
 }
 
 int check_ber(char *argv,int argc)
@@ -126,31 +114,19 @@ int check_arg(t_data *read)
         return 0;
     return 1;
 }
-// int food_fill()
-// {
-    
-// }
 
 int check_map(t_data *read)
 {
     if(check_error(read)== 0)
-      return 0;
+    {
+         write(2,"Error\n",6);
+        return 0;
+    }
     if(check_arg(read)==0)
+    {
+        write(2,"Error\n",6);
         return 0; 
+    }
     return 1;
 }
-void full_str(t_data **read_m,int fd)
-{
-    char *line;
-    int k;
-    
-    k = 0;
-    line = get_next_line(fd);
-    if (line != NULL) {
-       (*read_m)->str = ft_split(line, '\n');
-       (*read_m)->count = count_words(line, '\n');
-       (*read_m)->len = ft_strlen((*read_m)->str[0]);
-        free(line);
-    }
-    
-}
+
