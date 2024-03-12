@@ -6,7 +6,7 @@
 /*   By: zel-harb <zel-harb@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/03 14:35:34 by zel-harb          #+#    #+#             */
-/*   Updated: 2024/03/11 04:30:25 by zel-harb         ###   ########.fr       */
+/*   Updated: 2024/03/11 17:04:34 by zel-harb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,7 +79,7 @@ int check_mid(char *line)
     return 1;
     
 }
-int check_error(t_data *read)
+int check_error(t_img *read)
 { 
     int i;
     int count;
@@ -100,7 +100,7 @@ int check_error(t_data *read)
     }
     return 1;
 }
-int check_arg(t_data *read)
+int check_arg(t_img *read)
 {
    char tab[4];
    
@@ -115,7 +115,7 @@ int check_arg(t_data *read)
     return 1;
 }
 
-int check_map(t_data *read)
+int check_map(t_img *read)
 {
     if(check_error(read)== 0)
     {
