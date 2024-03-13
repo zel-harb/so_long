@@ -6,7 +6,7 @@
 /*   By: zel-harb <zel-harb@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/23 08:39:25 by zel-harb          #+#    #+#             */
-/*   Updated: 2024/03/02 14:57:28 by zel-harb         ###   ########.fr       */
+/*   Updated: 2024/03/13 15:32:26 by zel-harb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,15 +54,15 @@ char	*ft_strcpy(char *dest, char *src)
 
 char	*ft_strdup(char *src)
 {
-	char	*new_str;
+	char	*new;
 
-	new_str = (char *)malloc((ft_strlen(src) + 1) * sizeof(char));
-	if (new_str == NULL)
+	new = (char *)malloc((ft_strlen(src) + 1) * sizeof(char));
+	if (new == NULL)
 	{
 		return (NULL);
 	}
-	ft_strcpy(new_str, src);
-	return (new_str);
+	ft_strcpy(new, src);
+	return (new);
 }
 
 char	*ft_strjoin(char *s1, char *s2)

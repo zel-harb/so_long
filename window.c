@@ -6,7 +6,7 @@
 /*   By: zel-harb <zel-harb@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/11 04:28:29 by zel-harb          #+#    #+#             */
-/*   Updated: 2024/03/13 02:07:39 by zel-harb         ###   ########.fr       */
+/*   Updated: 2024/03/13 17:24:01 by zel-harb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,8 +32,8 @@ void	find_player(t_img **read)
 		}
 		i++;
 	}
-	// printf("X  %d  Y  %d\n",(*read)->x_player,(*read)->y_player);
 }
+
 void	full_str(t_img **read_m, char *argv)
 {
 	char	*line;
@@ -54,9 +54,12 @@ void	full_str(t_img **read_m, char *argv)
 		(*read_m)->count_moves = 0;
 		free(line);
 		find_player(read_m);
+		(*read_m)->x_pxl = 0;
+		(*read_m)->y_pxl = 0;
 	}
 	close(fd);
 }
+
 void	put_img(t_img **img)
 {
 	int	width;
@@ -76,53 +79,56 @@ void	put_img(t_img **img)
 	(*img)->img_exit[1] = mlx_xpm_file_to_image((*img)->mlx, "img/51.xpm",
 			&width, &height);
 }
+
+void	put_image(t_img **img, int i, int j)
+{
+	if ((*img)->str[i][j] == '1')
+		mlx_put_image_to_window((*img)->mlx, (*img)->mlx_win, (*img)->img_wall,
+			(*img)->y_pxl, (*img)->x_pxl);
+	if ((*img)->str[i][j] == 'P')
+	{
+		(*img)->x_player = j;
+		(*img)->y_player = i;
+		mlx_put_image_to_window((*img)->mlx, (*img)->mlx_win,
+			(*img)->img_player, (*img)->y_pxl, (*img)->x_pxl);
+	}
+	if ((*img)->str[i][j] == 'C')
+	{
+		mlx_put_image_to_window((*img)->mlx, (*img)->mlx_win, (*img)->img_coll,
+			(*img)->y_pxl, (*img)->x_pxl);
+	}
+	if ((*img)->str[i][j] == 'E')
+	{
+		if ((*img)->count_coll == 0)
+			mlx_put_image_to_window(((*img))->mlx, (*img)->mlx_win,
+				(*img)->img_exit[1], (*img)->y_pxl, (*img)->x_pxl);
+		else
+			mlx_put_image_to_window(((*img))->mlx, (*img)->mlx_win,
+				(*img)->img_exit[0], (*img)->y_pxl, (*img)->x_pxl);
+	}
+}
+
 void	print_window(t_img **img)
 {
 	int	i;
 	int	j;
-	int	i1;
-	int	j1;
 
 	i = 0;
 	j = 0;
-	i1 = 0;
-	j1 = 0;
+	(*img)->x_pxl = 0;
 	while (i < (*img)->count)
 	{
 		j = 0;
-		j1 = 0;
+		(*img)->y_pxl = 0;
 		while (j < (*img)->len)
 		{
 			mlx_put_image_to_window((*img)->mlx, (*img)->mlx_win,
-				(*img)->img_empty, j1, i1);
-			if ((*img)->str[i][j] == '1')
-				mlx_put_image_to_window((*img)->mlx, (*img)->mlx_win,
-					(*img)->img_wall, j1, i1);
-			if ((*img)->str[i][j] == 'P')
-			{
-				(*img)->x_player = j;
-				(*img)->y_player = i;
-				mlx_put_image_to_window((*img)->mlx, (*img)->mlx_win,
-					(*img)->img_player, j1, i1);
-			}
-			if ((*img)->str[i][j] == 'C')
-			{
-				mlx_put_image_to_window((*img)->mlx, (*img)->mlx_win,
-					(*img)->img_coll, j1, i1);
-			}
-			if ((*img)->str[i][j] == 'E')
-			{
-				if ((*img)->count_coll == 0)
-					mlx_put_image_to_window(((*img))->mlx, (*img)->mlx_win,
-						(*img)->img_exit[1], j1, i1);
-				else
-					mlx_put_image_to_window(((*img))->mlx, (*img)->mlx_win,
-						(*img)->img_exit[0], j1, i1);
-			}
+				(*img)->img_empty, (*img)->y_pxl, (*img)->x_pxl);
+			put_image(img, i, j);
 			j++;
-			j1 += 50;
+			(*img)->y_pxl += 50;
 		}
 		i++;
-		i1 += 50;
+		(*img)->x_pxl += 50;
 	}
 }

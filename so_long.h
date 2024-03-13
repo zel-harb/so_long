@@ -6,7 +6,7 @@
 /*   By: zel-harb <zel-harb@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/02 13:21:37 by zel-harb          #+#    #+#             */
-/*   Updated: 2024/03/13 01:17:55 by zel-harb         ###   ########.fr       */
+/*   Updated: 2024/03/13 17:27:47 by zel-harb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,18 +25,14 @@
 #  define BUFFER_SIZE 4
 # endif
 
-// typedef struct	s_data {
-// 	int count;
-//     int len;
-//     char **str;
-// }				t_data;
-
 typedef struct s_img
 {
 	int		count;
 	int		len;
 	char	**str;
 	char	**str_copy;
+	int		x_pxl;
+	int		y_pxl;
 	void	*mlx;
 	void	*mlx_win;
 	void	*img_wall;
@@ -52,6 +48,7 @@ typedef struct s_img
 	int		count_moves;
 }			t_img;
 
+int			ft_strchr_int(char **s, char c, int size);
 char		*ft_strjoin(char *s1, char *s2);
 char		*ft_strchr(char *s, int c);
 size_t		ft_strlen(char *str);
@@ -64,5 +61,10 @@ int			count_words(char const *s, char c);
 void		full_str(t_img **read_m, char *argv);
 void		put_img(t_img **img);
 void		print_window(t_img **img);
+int			check_first_last(char *line);
+int			check_mid(char *line);
+void		ft_moves(t_img **img);
+int			close_win(int keycode, t_img *var);
+int			delete_window(void *param);
 
 #endif
