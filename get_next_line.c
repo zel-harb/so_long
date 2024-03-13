@@ -21,7 +21,7 @@ char	*to_read(int fd, char *str)
 	buf = malloc((size_t)BUFFER_SIZE + 1);
 	if (!buf)
 		return (NULL);
-	while ( i != 0)
+	while (i != 0)
 	{
 		i = read(fd, buf, BUFFER_SIZE);
 		if (i < 0)
@@ -34,7 +34,6 @@ char	*to_read(int fd, char *str)
 		str = ft_strjoin(str, buf);
 	}
 	free(buf);
-
 	return (str);
 }
 
