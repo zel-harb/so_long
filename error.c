@@ -6,7 +6,7 @@
 /*   By: zel-harb <zel-harb@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/03 14:35:34 by zel-harb          #+#    #+#             */
-/*   Updated: 2024/03/13 15:29:02 by zel-harb         ###   ########.fr       */
+/*   Updated: 2024/03/14 01:43:25 by zel-harb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,7 +65,7 @@ int	check_arg(t_img *read)
 	tab[2] = 'C';
 	tab[3] = '0';
 	if (ft_strchr_int(read->str, tab[0], read->count) != 1
-		|| !ft_strchr_int(read->str, tab[1], read->count))
+		|| ft_strchr_int(read->str, tab[1], read->count) != 1)
 		return (0);
 	if (!ft_strchr_int(read->str, tab[2], read->count)
 		|| !ft_strchr_int(read->str, tab[3], read->count))
@@ -88,7 +88,7 @@ void	flood_fill(t_img **map, int x, int y)
 
 int	check_map(t_img **read)
 {
-	if (check_error(*read) == 0)
+	if (check_error(*read) == 0 || (*read)->len <= (*read)->count)
 	{
 		write(2, "Error\n", 6);
 		return (0);

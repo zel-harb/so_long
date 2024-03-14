@@ -6,7 +6,7 @@
 /*   By: zel-harb <zel-harb@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/02 13:21:45 by zel-harb          #+#    #+#             */
-/*   Updated: 2024/03/13 17:25:12 by zel-harb         ###   ########.fr       */
+/*   Updated: 2024/03/14 01:40:53 by zel-harb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,6 +38,8 @@ int	main(int argc, char **argv)
 	t_img	*img;
 
 	if (check_ber(argv[1], argc) == 0)
+		return (0);
+	if (check_line(argv[1]) == 0)
 		return (0);
 	img = (t_img *)malloc(sizeof(t_img));
 	if (img == NULL)

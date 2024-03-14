@@ -6,7 +6,7 @@
 /*   By: zel-harb <zel-harb@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/13 15:26:05 by zel-harb          #+#    #+#             */
-/*   Updated: 2024/03/13 15:57:09 by zel-harb         ###   ########.fr       */
+/*   Updated: 2024/03/14 01:43:31 by zel-harb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,5 +58,32 @@ int	check_mid(char *line)
 		return (0);
 	if (line[ft_strlen(line) - 1] != '1')
 		return (0);
+	return (1);
+}
+
+int	check_line(char *argv)
+{
+	int		fd;
+	int		i;
+	char	*line;
+
+	fd = open(argv, O_RDONLY);
+	line = get_next_line(fd);
+	close(fd);
+	i = 0;
+	while (line[i])
+	{
+		if (line[i] == '\n')
+		{
+			if (line[i + 1] == '\n')
+			{
+				write(2, "Error\n", 6);
+				free(line);
+				return (0);
+			}
+		}
+		i++;
+	}
+	free(line);
 	return (1);
 }

@@ -6,7 +6,7 @@
 /*   By: zel-harb <zel-harb@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/02 13:21:37 by zel-harb          #+#    #+#             */
-/*   Updated: 2024/03/13 17:27:47 by zel-harb         ###   ########.fr       */
+/*   Updated: 2024/03/14 01:41:57 by zel-harb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,5 +66,6 @@ int			check_mid(char *line);
 void		ft_moves(t_img **img);
 int			close_win(int keycode, t_img *var);
 int			delete_window(void *param);
+int 		check_line(char *argv);
 
 #endif
