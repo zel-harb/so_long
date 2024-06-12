@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   main_bonus.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: zel-harb <zel-harb@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/02 13:21:45 by zel-harb          #+#    #+#             */
-/*   Updated: 2024/04/29 10:19:27 by zel-harb         ###   ########.fr       */
+/*   Updated: 2024/04/29 10:18:35 by zel-harb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,9 +23,7 @@ int	key_p(int keycode, t_img **game)
 	else if (keycode == 1)
 		(*game)->y_pos = 1;
 	else if (keycode == 53)
-	{
-		free_window_exit(*game, 0);
-	}
+		exit(0);
 	ft_moves(game);
 	mlx_clear_window((*game)->mlx, (*game)->mlx_win);
 	print_window(game);
@@ -53,7 +51,7 @@ int	check_ber_line(char *argv, int argc)
 void	window(t_img *img)
 {
 	put_img(&img);
-	print_window(&img);
+	mlx_loop_hook(img->mlx, print_window, &img);
 	mlx_hook(img->mlx_win, 2, 0L, key_p, &img);
 	mlx_hook(img->mlx_win, 17, 0, delete_window, NULL);
 	mlx_loop(img->mlx);

@@ -1,25 +1,30 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   exit.c                                             :+:      :+:    :+:   */
+/*   ft_putnbr_base.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: zel-harb <zel-harb@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/03/13 15:46:25 by zel-harb          #+#    #+#             */
-/*   Updated: 2024/04/24 17:39:58 by zel-harb         ###   ########.fr       */
+/*   Created: 2023/12/04 17:15:36 by zel-harb          #+#    #+#             */
+/*   Updated: 2023/12/07 23:33:16 by zel-harb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "so_long.h"
+#include "ft_printf.h"
 
-int	delete_window(void *param)
+void	ft_putnbr_base(unsigned int nbr, char Xx, int *len)
 {
-	exit(0);
-}
+	char			*base;
 
-int	close_win(int keycode, t_img *var)
-{
-	if (keycode == 53)
-		free_window_exit(var, 0);
-	return (0);
+	if (Xx == 'x')
+		base = "0123456789abcdef";
+	else
+		base = "0123456789ABCDEF";
+	if (nbr < 16)
+		ft_putchar(base[nbr], len);
+	else
+	{
+		ft_putnbr_base(nbr / 16, Xx, len);
+		ft_putnbr_base(nbr % 16, Xx, len);
+	}
 }

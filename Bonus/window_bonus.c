@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   window.c                                           :+:      :+:    :+:   */
+/*   window_bonus.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: zel-harb <zel-harb@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/11 04:28:29 by zel-harb          #+#    #+#             */
-/*   Updated: 2024/04/26 14:37:21 by zel-harb         ###   ########.fr       */
+/*   Updated: 2024/04/25 10:56:26 by zel-harb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,17 +57,42 @@ void	full_str(t_img **read_m, char *argv)
 		(*read_m)->x_pxl = 0;
 		(*read_m)->y_pxl = 0;
 		(*read_m)->x_sp = 0;
+		(*read_m)->z = 0;
+		(*read_m)->i = 0;
 	}
 	close(fd);
 }
 
-void	draw_player(t_img *img)
+void	put_image(t_img **img, int i, int j)
 {
-	mlx_put_image_to_window(img->mlx, img->mlx_win, img->img_player[img->x_sp],
-		img->y_player, img->x_player);
+	if ((*img)->str[i][j] == '1')
+		mlx_put_image_to_window((*img)->mlx, (*img)->mlx_win, (*img)->img_wall,
+			(*img)->y_pxl, (*img)->x_pxl);
+	else if ((*img)->str[i][j] == 'P')
+	{
+		(*img)->y_player = (*img)->y_pxl;
+		(*img)->x_player = (*img)->x_pxl;
+	}
+	else if ((*img)->str[i][j] == 'C')
+	{
+		mlx_put_image_to_window((*img)->mlx, (*img)->mlx_win, (*img)->img_coll,
+			(*img)->y_pxl, (*img)->x_pxl);
+	}
+	else if ((*img)->str[i][j] == 'N')
+	{
+		(*img)->y_enemy = (*img)->y_pxl;
+		(*img)->x_enemy = (*img)->x_pxl;
+		if ((*img)->str[i][j + 1] != '0' && (*img)->str[i][j + 1] != 'P')
+			(*img)->z = 1;
+		else if ((*img)->str[i][j - 1] != '0' && (*img)->str[i][j - 1] != 'P')
+			(*img)->z = 0;
+		animation(img);
+	}
+	else if ((*img)->str[i][j] == 'E')
+		animation_exit(*img);
 }
 
-void	print_window(t_img **img)
+int	print_window(t_img **img)
 {
 	int	i;
 	int	j;
@@ -90,5 +115,8 @@ void	print_window(t_img **img)
 		i++;
 		(*img)->x_pxl += 50;
 	}
-	draw_player(*img);
+	mlx_put_image_to_window((*img)->mlx, (*img)->mlx_win,
+		(*img)->img_player[(*img)->x_sp], (*img)->y_player, (*img)->x_player);
+	print_moves(*img);
+	return (0);
 }

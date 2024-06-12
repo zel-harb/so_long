@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   error.c                                            :+:      :+:    :+:   */
+/*   error_bonus.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: zel-harb <zel-harb@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/03 14:35:34 by zel-harb          #+#    #+#             */
-/*   Updated: 2024/05/04 11:39:06 by zel-harb         ###   ########.fr       */
+/*   Updated: 2024/04/29 10:20:16 by zel-harb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,7 @@ int	check_error(t_img *read)
 	if (check_first_last(read->str[0]) == 0
 		|| check_first_last(read->str[(read->count) - 1]) == 0)
 	{
-		write(2, "Error\nInvalid character\n", 25);
+		write(2, "Error\nInvalid args\n", 20);
 		return (0);
 	}
 	i++;
@@ -65,26 +65,29 @@ int	check_error(t_img *read)
 
 int	check_arg(t_img *read)
 {
-	char	tab[3];
+	char	tab[4];
 
 	tab[0] = 'P';
 	tab[1] = 'E';
 	tab[2] = 'C';
+	tab[3] = 'N';
 	if (ft_strchr_int(read->str, tab[0], read->count) != 1
 		|| ft_strchr_int(read->str, tab[1], read->count) != 1)
 		return (0);
-	if (!ft_strchr_int(read->str, tab[2], read->count))
+	if (!ft_strchr_int(read->str, tab[2], read->count)
+		|| ft_strchr_int(read->str, tab[3], read->count) > 1)
 		return (0);
 	return (1);
 }
 
 void	flood_fill(t_img **map, int x, int y)
 {
-	if ((*map)->str_copy[y][x] == 'E')
+	if ((*map)->str_copy[y][x] == 'E' || (*map)->str_copy[y][x] == 'N')
 		(*map)->str_copy[y][x] = '1';
 	if (x < 0 || y < 0 || x >= (*map)->len || y >= (*map)->count
 		|| ((*map)->str_copy[y][x] != '0' && (*map)->str_copy[y][x] != 'C'
-			&& (*map)->str_copy[y][x] != 'P' && (*map)->str_copy[y][x] != 'E'))
+			&& (*map)->str_copy[y][x] != 'P' && (*map)->str_copy[y][x] != 'E'
+			&& (*map)->str_copy[y][x] != 'N'))
 		return ;
 	(*map)->str_copy[y][x] = 'X';
 	flood_fill(map, x - 1, y);
@@ -97,7 +100,7 @@ int	check_map(t_img **read)
 {
 	if ((*read)->str == NULL)
 	{
-		write(2, "Error\nEmpty map\n", 17);
+		write(2, "Error\nEmpty map\n", 19);
 		return (1);
 	}
 	if (check_error(*read) == 0)

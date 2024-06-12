@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   moves.c                                            :+:      :+:    :+:   */
+/*   moves_bonus.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: zel-harb <zel-harb@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/13 15:38:04 by zel-harb          #+#    #+#             */
-/*   Updated: 2024/04/21 13:29:07 by zel-harb         ###   ########.fr       */
+/*   Updated: 2024/04/21 16:43:23 by zel-harb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,11 @@
 
 void	down(t_img **img, int x, int y)
 {
+	if ((*img)->str[y + 1][x] == 'N')
+	{
+		write(1, "LOSE !\n", 7);
+		free_window_exit(*img, 0);
+	}
 	if ((*img)->str[y + 1][x] != '1' && ((*img)->count_coll == 0
 			|| (*img)->str[y + 1][x] != 'E'))
 	{
@@ -21,19 +26,22 @@ void	down(t_img **img, int x, int y)
 			(*img)->count_coll--;
 		if ((*img)->str[y + 1][x] == 'E' && (*img)->count_coll == 0)
 		{
-			ft_printf("moves %d \n", (*img)->count_moves + 1);
 			write(1, "you win !", 10);
 			free_window_exit(*img, 0);
 		}
 		(*img)->str[y][x] = '0';
 		(*img)->str[y + 1][x] = 'P';
 		(*img)->count_moves++;
-		ft_printf("moves %d \n", (*img)->count_moves);
 	}
 }
 
 void	up(t_img **img, int x, int y)
 {
+	if ((*img)->str[y - 1][x] == 'N')
+	{
+		write(1, "LOSE !\n", 7);
+		free_window_exit(*img, 0);
+	}
 	if ((*img)->str[y - 1][x] != '1' && ((*img)->count_coll == 0
 			|| (*img)->str[y - 1][x] != 'E'))
 	{
@@ -41,7 +49,6 @@ void	up(t_img **img, int x, int y)
 			(*img)->count_coll--;
 		if ((*img)->str[y - 1][x] == 'E' && (*img)->count_coll == 0)
 		{
-			ft_printf("moves %d \n", (*img)->count_moves + 1);
 			write(1, "you win !", 10);
 			free_window_exit(*img, 0);
 		}
@@ -49,12 +56,16 @@ void	up(t_img **img, int x, int y)
 		(*img)->str[y - 1][x] = 'P';
 		(*img)->y_player = y - 1;
 		(*img)->count_moves++;
-		ft_printf("moves %d \n", (*img)->count_moves);
 	}
 }
 
 void	right(t_img **img, int x, int y)
 {
+	if ((*img)->str[y][x + 1] == 'N')
+	{
+		write(1, "LOSE !\n", 7);
+		free_window_exit(*img, 0);
+	}
 	if ((*img)->str[y][x + 1] != '1' && ((*img)->count_coll == 0
 			|| (*img)->str[y][x + 1] != 'E'))
 	{
@@ -62,7 +73,6 @@ void	right(t_img **img, int x, int y)
 			(*img)->count_coll--;
 		if ((*img)->str[y][x + 1] == 'E' && (*img)->count_coll == 0)
 		{
-			ft_printf("moves %d \n", (*img)->count_moves + 1);
 			write(1, "you win !\n", 10);
 			free_window_exit(*img, 0);
 		}
@@ -70,12 +80,16 @@ void	right(t_img **img, int x, int y)
 		(*img)->str[y][x + 1] = 'P';
 		(*img)->count_moves++;
 		(*img)->x_sp = 0;
-		ft_printf("moves %d \n", (*img)->count_moves);
 	}
 }
 
 void	left(t_img **img, int x, int y)
 {
+	if ((*img)->str[y][x - 1] == 'N')
+	{
+		write(1, "LOSE !\n", 7);
+		free_window_exit(*img, 0);
+	}
 	if ((*img)->str[y][x - 1] != '1' && ((*img)->count_coll == 0
 			|| (*img)->str[y][x - 1] != 'E'))
 	{
@@ -83,7 +97,6 @@ void	left(t_img **img, int x, int y)
 			(*img)->count_coll--;
 		if ((*img)->str[y][x - 1] == 'E' && (*img)->count_coll == 0)
 		{
-			ft_printf("moves %d \n", (*img)->count_moves + 1);
 			write(1, "you win !", 10);
 			free_window_exit(*img, 0);
 		}
@@ -91,7 +104,6 @@ void	left(t_img **img, int x, int y)
 		(*img)->str[y][x - 1] = 'P';
 		(*img)->count_moves++;
 		(*img)->x_sp = 1;
-		ft_printf("moves %d \n", (*img)->count_moves);
 	}
 }
 

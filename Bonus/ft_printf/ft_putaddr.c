@@ -1,25 +1,36 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   exit.c                                             :+:      :+:    :+:   */
+/*   ft_putaddr.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: zel-harb <zel-harb@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/03/13 15:46:25 by zel-harb          #+#    #+#             */
-/*   Updated: 2024/04/24 17:39:58 by zel-harb         ###   ########.fr       */
+/*   Created: 2023/12/05 02:07:12 by zel-harb          #+#    #+#             */
+/*   Updated: 2023/12/07 23:14:51 by zel-harb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "so_long.h"
+#include "ft_printf.h"
 
-int	delete_window(void *param)
+void	ft_putaddr_hex(unsigned long nbr, int *len)
 {
-	exit(0);
+	char	*base;
+
+	base = "0123456789abcdef";
+	if (nbr < 16)
+		ft_putchar(base[nbr], len);
+	else
+	{
+		ft_putaddr_hex(nbr / 16, len);
+		ft_putaddr_hex(nbr % 16, len);
+	}
 }
 
-int	close_win(int keycode, t_img *var)
+void	ft_putaddr(void *addr, int *len)
 {
-	if (keycode == 53)
-		free_window_exit(var, 0);
-	return (0);
+	unsigned long	ptr;
+
+	ptr = (unsigned long)addr;
+	ft_putstr("0x", len);
+	ft_putaddr_hex(ptr, len);
 }
